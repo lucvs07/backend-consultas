@@ -14,6 +14,8 @@ public class Paciente {
     private String nome;
     @Column(nullable = false)
     private String email;
+    @Column(nullable = false, unique = true)
+    private String cpf;
     private String telefone;
     @Column(nullable = false)
     private LocalDate dataNascimento;
@@ -66,5 +68,13 @@ public class Paciente {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
