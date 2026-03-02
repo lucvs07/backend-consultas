@@ -24,4 +24,8 @@ public class EspecialidadeController {
     public Especialidade getById(@PathVariable Long id) {
         return service.getById(id);
     }
+    @DeleteMapping("delete-by-id/{id}")
+    public void deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+    }
 }

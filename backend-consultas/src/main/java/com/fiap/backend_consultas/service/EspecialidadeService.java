@@ -18,4 +18,7 @@ public class EspecialidadeService {
     public Especialidade getById (Long id) {
         return repository.getReferenceById(id);
     }
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
 }
