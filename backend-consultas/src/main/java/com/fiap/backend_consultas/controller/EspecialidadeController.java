@@ -12,20 +12,30 @@ public class EspecialidadeController {
     public EspecialidadeController(EspecialidadeService service) {
         this.service = service;
     }
+
     @PostMapping
     public Especialidade criar(@RequestBody Especialidade especialidade) {
         return service.salvar(especialidade);
     }
+
     @GetMapping
     public List<Especialidade> listar() {
         return service.listar();
     }
+
     @GetMapping("/by-id/{id}")
     public Especialidade getById(@PathVariable Long id) {
         return service.getById(id);
     }
+
     @DeleteMapping("delete-by-id/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
+    }
+
+    @PutMapping("/update-by-id/{id}")
+    public Especialidade updateById(@PathVariable Long id,
+                               @RequestBody Especialidade updatedEspecialidade) {
+        return service.update(id, updatedEspecialidade);
     }
 }
