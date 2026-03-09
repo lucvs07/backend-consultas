@@ -39,12 +39,16 @@ public class PacienteService {
 
     public Paciente update(Long id, Paciente updatedPaciente){
         Paciente paciente = getById(id);
-        paciente.setNome(updatedPaciente.getNome());
-        paciente.setCpf(updatedPaciente.getCpf());
-        paciente.setEmail(updatedPaciente.getEmail());
-        paciente.setTelefone(updatedPaciente.getTelefone());
-        paciente.setDataNascimento(updatedPaciente.getDataNascimento());
-        paciente.setAtivo(updatedPaciente.getAtivo());
+        processUpdate(updatedPaciente, paciente);
         return repository.save(paciente);
+    }
+
+    private static void processUpdate(Paciente updatedPaciente, Paciente paciente) {
+        paciente.setNome(updatedPaciente.getNome() != null ? updatedPaciente.getNome() : paciente.getNome());
+        paciente.setCpf(updatedPaciente.getCpf() != null ? updatedPaciente.getCpf() : paciente.getCpf());
+        paciente.setEmail(updatedPaciente.getEmail() != null ? updatedPaciente.getEmail() : paciente.getEmail());
+        paciente.setTelefone(updatedPaciente.getTelefone() != null ? updatedPaciente.getTelefone() : paciente.getTelefone());
+        paciente.setDataNascimento(updatedPaciente.getDataNascimento() != null ? updatedPaciente.getDataNascimento() : paciente.getDataNascimento());
+        paciente.setAtivo(updatedPaciente.getAtivo() != null ? updatedPaciente.getAtivo() : paciente.getAtivo());
     }
 }

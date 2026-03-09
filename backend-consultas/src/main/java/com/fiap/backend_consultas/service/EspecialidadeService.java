@@ -30,8 +30,12 @@ public class EspecialidadeService {
 
     public Especialidade update(Long id, Especialidade updatedEspecialidade){
         Especialidade especialidade = getById(id);
-        especialidade.setNome(updatedEspecialidade.getNome());
-        especialidade.setDescricao(updatedEspecialidade.getDescricao());
+        processUpdate(updatedEspecialidade, especialidade);
         return repository.save(especialidade);
+    }
+
+    private static void processUpdate(Especialidade updatedEspecialidade, Especialidade especialidade) {
+        especialidade.setNome(updatedEspecialidade.getNome() != null ? updatedEspecialidade.getNome() : especialidade.getNome());
+        especialidade.setDescricao(updatedEspecialidade.getDescricao() != null ? updatedEspecialidade.getDescricao() : especialidade.getDescricao());
     }
 }
