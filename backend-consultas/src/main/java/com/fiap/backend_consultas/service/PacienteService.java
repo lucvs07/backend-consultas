@@ -36,4 +36,15 @@ public class PacienteService {
     public void deleteById(Long id){
         repository.deleteById(id);
     }
+
+    public Paciente update(Long id, Paciente updatedPaciente){
+        Paciente paciente = getById(id);
+        paciente.setNome(updatedPaciente.getNome());
+        paciente.setCpf(updatedPaciente.getCpf());
+        paciente.setEmail(updatedPaciente.getEmail());
+        paciente.setTelefone(updatedPaciente.getTelefone());
+        paciente.setDataNascimento(updatedPaciente.getDataNascimento());
+        paciente.setAtivo(updatedPaciente.getAtivo());
+        return repository.save(paciente);
+    }
 }
