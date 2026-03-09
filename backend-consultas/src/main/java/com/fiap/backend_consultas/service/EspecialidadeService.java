@@ -27,4 +27,11 @@ public class EspecialidadeService {
     public void deleteById(Long id){
         repository.deleteById(id);
     }
+
+    public Especialidade update(Long id, Especialidade updatedEspecialidade){
+        Especialidade especialidade = getById(id);
+        especialidade.setNome(updatedEspecialidade.getNome());
+        especialidade.setDescricao(updatedEspecialidade.getDescricao());
+        return repository.save(especialidade);
+    }
 }
