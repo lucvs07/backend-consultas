@@ -9,21 +9,28 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 @Service
 public class EspecialidadeService {
+
     public static final String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade Não Encontrada";
+
     private final EspecialidadeRepository repository;
+
     public EspecialidadeService(EspecialidadeRepository repository) {
         this.repository = repository;
     }
+
     public Especialidade salvar(Especialidade especialidade) {
         return repository.save(especialidade);
     }
+
     public List<Especialidade> listar() {
         return repository.findAll();
     }
+
     public Especialidade getById (Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EspecialidadeException(ESPECIALIDADE_NAO_ENCONTRADA));
     }
+
     public void deleteById(Long id){
         repository.deleteById(id);
     }
