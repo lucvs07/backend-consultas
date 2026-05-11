@@ -2,6 +2,7 @@ package com.fiap.backend_consultas.service;
 
 import java.util.List;
 
+import com.fiap.backend_consultas.exception.ConsultaException;
 import org.springframework.stereotype.Service;
 
 import com.fiap.backend_consultas.model.Consulta;
@@ -14,6 +15,7 @@ import com.fiap.backend_consultas.repository.PacienteRepository;
 @Service
 public class ConsultaService {
 
+    public static final String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada";
     private final ConsultaRepository consultaRepository;
     private final MedicoService medicoService;
     private final PacienteService pacienteService;
@@ -32,7 +34,7 @@ public class ConsultaService {
 
     public Consulta getById(Long id) {
         return consultaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
+                .orElseThrow(() -> new ConsultaException(CONSULTA_NAO_ENCONTRADA));
     }
 
     public Consulta salvar(Consulta consulta) {
