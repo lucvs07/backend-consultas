@@ -26,6 +26,11 @@ public class MedicoService {
                 .orElseThrow(() -> new MedicoException(MEDICO_NAO_ENCONTRADO));
     }
 
+    public Medico getByCrm(String crm) {
+        return repository.findByCrm(crm)
+                .orElseThrow(() -> new MedicoException(MEDICO_NAO_ENCONTRADO));
+    }
+
     public Medico update(Long id, Medico updatedMedico) {
         Medico savedMedico = getById(id);
         savedMedico.setNome(updatedMedico.getNome() != null ? updatedMedico.getNome() : savedMedico.getNome());
@@ -36,5 +41,9 @@ public class MedicoService {
     }
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Medico> listarByEspecialidade(Long especialidadeId) {
+        return repository.findAllByEspecialidade(especialidadeId);
     }
 }

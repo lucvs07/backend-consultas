@@ -19,9 +19,19 @@ public class MedicoController {
         return service.listar();
     }
 
+    @GetMapping("/by-especialidade/{especialidadeId}")
+    public List<Medico> listarByEspecialidade(@PathVariable Long especialidadeId) {
+        return service.listarByEspecialidade(especialidadeId);
+    }
+
     @GetMapping("/by-id/{id}")
     public Medico getByiD(@PathVariable Long id) {
         return service.getById(id);
+    }
+
+    @GetMapping("/by-crm/{crm}")
+    public Medico getByCrm(@PathVariable String crm) {
+        return service.getByCrm(crm);
     }
 
     @PostMapping
