@@ -31,6 +31,11 @@ public class PacienteController {
         return service.getById(id);
     }
 
+    @GetMapping("/by-cpf/{cpf}")
+    public Paciente getByCpf(@PathVariable String cpf) {
+        return service.getByCpf(cpf);
+    }
+
     @DeleteMapping("/delete-by-id/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);

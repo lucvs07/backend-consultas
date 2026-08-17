@@ -33,6 +33,11 @@ public class PacienteService {
                 .orElseThrow(() -> new PacienteException(PACIENTE_NAO_ENCONTRADO));
     }
 
+    public Paciente getByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .orElseThrow(() -> new PacienteException(PACIENTE_NAO_ENCONTRADO));
+    }
+
     public void deleteById(Long id){
         repository.deleteById(id);
     }
