@@ -1,5 +1,7 @@
 package com.fiap.backend_consultas.service;
+import com.fiap.backend_consultas.exception.DadosInvalidosException;
 import com.fiap.backend_consultas.exception.EspecialidadeException;
+import com.fiap.backend_consultas.exception.RecursoDuplicadoException;
 import com.fiap.backend_consultas.model.Especialidade;
 import com.fiap.backend_consultas.repository.EspecialidadeRepository;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ public class EspecialidadeService {
     }
 
     public Especialidade salvar(Especialidade especialidade) {
+        validarEspecialidade(especialidade);
         return repository.save(especialidade);
     }
 
@@ -37,6 +40,7 @@ public class EspecialidadeService {
 
     public Especialidade update(Long id, Especialidade updatedEspecialidade){
         Especialidade especialidade = getById(id);
+        validarEspecialidade(updatedEspecialidade);
         processUpdate(updatedEspecialidade, especialidade);
         return repository.save(especialidade);
     }
@@ -44,5 +48,17 @@ public class EspecialidadeService {
     private static void processUpdate(Especialidade updatedEspecialidade, Especialidade especialidade) {
         especialidade.setNome(updatedEspecialidade.getNome() != null ? updatedEspecialidade.getNome() : especialidade.getNome());
         especialidade.setDescricao(updatedEspecialidade.getDescricao() != null ? updatedEspecialidade.getDescricao() : especialidade.getDescricao());
+    }
+
+    private void validarEspecialidade(Especialidade especialidade) {
+        if (especialidade.getNome() != null) {
+            especialidade.setNome(especialidade.getNome().trim());
+        }
+        if (especialidade.getNome() == null || especialidade.getNome().isBlank()) {
+            throw new DadosInvalidosException("Nome da especialidade é obrigatório.");
+        }
+        if (repository.existsByNomeIgnoreCase(especialidade.getNome())) {
+            throw new RecursoDuplicadoException("Especialidade já cadastrada.");
+        }
     }
 }
