@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fiap.backend_consultas.enums.StatusConsulta;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.fiap.backend_consultas.model.Consulta;
@@ -22,6 +23,7 @@ import com.fiap.backend_consultas.repository.PacienteRepository;
  * sem duplicar dados.
  */
 @Component
+@Order(10)
 public class DataLoader implements CommandLineRunner {
 
     private final ConsultaRepository consultaRepository;
