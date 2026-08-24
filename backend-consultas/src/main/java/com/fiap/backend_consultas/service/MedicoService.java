@@ -1,5 +1,6 @@
 package com.fiap.backend_consultas.service;
 import com.fiap.backend_consultas.exception.MedicoException;
+import com.fiap.backend_consultas.model.Especialidade;
 import com.fiap.backend_consultas.model.Medico;
 import com.fiap.backend_consultas.repository.MedicoRepository;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,11 @@ public class MedicoService {
 
     public static final String MEDICO_NAO_ENCONTRADO = "Médico não encontrado";
     private final MedicoRepository repository;
+    private final EspecialidadeService especialidadeService;
 
-    public MedicoService(MedicoRepository repository) {
+    public MedicoService(MedicoRepository repository, EspecialidadeService especialidadeService) {
         this.repository = repository;
+        this.especialidadeService = especialidadeService;
     }
 
     public Medico salvar(Medico medico) {
@@ -44,6 +47,7 @@ public class MedicoService {
     }
 
     public List<Medico> listarByEspecialidade(Long especialidadeId) {
-        return repository.findAllByEspecialidade(especialidadeId);
+        Especialidade especialidade = especialidadeService.getById(especialidadeId);
+        return repository.findAllByEspecialidade(especialidade);
     }
 }
